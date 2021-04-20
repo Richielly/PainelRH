@@ -64,7 +64,27 @@ if uploaded_file is not None:
 #     resposta2 = db.TransactionObject()
 #     st.table(resposta2.view())
 
+    if (st.sidebar.checkbox("Férias por setor")):
+        st.title('Férias por setor')
+        por_setor = pd.Index(df['Setor']).value_counts()
+        st.table(por_setor)
+        st.bar_chart(por_setor)
 
+    if (st.sidebar.checkbox("Férias por mês/ano")):
+        st.title('Férias por mês/ano 30 dias')
+        ferias = pd.DatetimeIndex(df['Inicio']).strftime('%m/%Y').value_counts()
+        st.table(ferias)
+        st.bar_chart(ferias)
+
+        st.title('Férias por mês/ano Primeira Parte')
+        ferias = pd.DatetimeIndex(df['Primeira Parte']).strftime('%m/%Y').value_counts()
+        st.table(ferias)
+        st.bar_chart(ferias)
+
+        st.title('Férias por mês/ano Segunda Parte')
+        ferias = pd.DatetimeIndex(df['Segunda Parte']).strftime('%m/%Y').value_counts()
+        st.table(ferias)
+        st.bar_chart(ferias)
 
 if st.sidebar.checkbox('Banco'):
     st.header('Informações contidas no banco de dados:')
@@ -80,3 +100,4 @@ if st.sidebar.checkbox('Banco'):
             st.success(msg)
         else:
             st.warning(msg)
+
